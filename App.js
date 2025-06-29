@@ -1,11 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const app = express();
 
 const multer = require('multer');
 const { sequelize } = require("./models");
 require('./models');
-require("./cronJobs/sendReminders");
 
 const authRoutes = require('./routes/authRoute');
 const voyageRoutes = require('./routes/voyageUserRoute'); 
@@ -19,12 +19,12 @@ const activityAdminRoutes = require('./routes/activityAdminRoute');
 const adminNotificationRoutes = require("./routes/adminNotificationRoute");
 const userAdminRoutes = require("./routes/userAdminRoute"); 
 const statsRoutes = require("./routes/statsRoute")
-const app = express();
 const upload = multer({ dest: 'uploads/' });
 
 app.use(express.json());
 app.use(cors());
 
+app.use('/pdfs', express.static(path.join(__dirname, 'pdfs')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 //Routes
@@ -42,12 +42,9 @@ app.use("/admin/user", userAdminRoutes);
 app.use('/admin', adminRoutes);
 app.use('/admin' ,statsRoutes )
 
-statsRoutes
 
 const PORT = process.env.PORT || 3000;
 
-
-// Initialisation Sequelize et démarrage serveur
 sequelize.sync({ alter: true, logging: false })
 .then(() => {
   console.log("DB connectée avec succès");

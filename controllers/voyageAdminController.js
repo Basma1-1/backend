@@ -15,7 +15,6 @@ function formatDate(value) {
   return `${year}-${month}-${day}`;
 }
 
-
 // creer un voyage
 exports.createVoyage = async (req, res) => {
   try {
@@ -95,7 +94,7 @@ exports.getOneVoyage = async (req, res) => {
     if (!voyage) return res.status(404).json({ message: "Voyage introuvable" });
 
     const data = voyage.toJSON();
-    const BASE_URL = 'http://localhost:8080'; // À adapter si tu déploies ailleurs
+    const BASE_URL = 'http://localhost:8080'; 
 
     data.start_date = formatDate(data.start_date);
     data.end_date = formatDate(data.end_date);

@@ -1,4 +1,3 @@
-// statsController.js
 const { Voyage, User, Reservation } = require('../models');
 const sequelize = require('../config/db');
 
@@ -7,8 +6,6 @@ exports.getStats = async (req, res) => {
     const voyagesCount = await Voyage.count();
     const usersCount = await User.count();
     const reservationsCount = await Reservation.count();
-
-    // Exemple : réservations par mois (à adapter selon ta base)
     const reservationsPerMonth = await sequelize.query(`
         SELECT DATE_FORMAT(reservation_date, '%b') AS month, COUNT(*) AS count
         FROM Reservations

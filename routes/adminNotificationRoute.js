@@ -7,7 +7,7 @@ const adminNotificationController = require("../controllers/adminNotificationCon
 router.use(verifyToken);
 
 router.get("/", adminNotificationController.getAllNotifications);
-router.get("/:id", isAdmin, adminNotificationController.getNotificationById); // ✅ AJOUT ICI
+router.get("/:id", isAdmin, adminNotificationController.getNotificationById); 
 router.post("/",isAdmin, adminNotificationController.createNotification);
 router.delete("/:id",isAdmin,  adminNotificationController.deleteNotification);
 router.put("/:id",isAdmin, adminNotificationController.updateNotification);
