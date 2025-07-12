@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const { User , Role } = require('../models');
 
-// inscription
+// inscription utilisateur
 exports.register = async (req, res) => {
     console.log("Inscription reçue:", req.body); 
   try {
@@ -40,10 +40,10 @@ exports.register = async (req, res) => {
   }
 };
 
-const ADMIN_EMAIL = "admin@gmail.com";
-const ADMIN_PASSWORD_HASH =  "$2b$10$bty2oRMeoSQS4J6XuXke3eCDldEfLzjGXFkCmv6U6zkSFNiHNTPHu" ;
+// const ADMIN_EMAIL = "admin@gmail.com";
+// const ADMIN_PASSWORD_HASH =  "$2b$10$bty2oRMeoSQS4J6XuXke3eCDldEfLzjGXFkCmv6U6zkSFNiHNTPHu" ;
 
-//  connecter
+//  connecter utilisateur
 exports.login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -65,7 +65,7 @@ exports.login = async (req, res) => {
   }
 };
 
-// deconnexion
+// déconnexion utilisateur
 exports.logout = (req, res) => {
   res.json({ message: "Déconnexion réussie" });
 };

@@ -1,7 +1,7 @@
 const { Op } = require('sequelize');
 const { Voyage, Hotel, Transport, Activity } = require('../models');
 
-// recherche pour utilsareur connecter et anonyme
+// recherche des voyages pour utilsareur connecter et anonyme
 exports.searchVoyages = async (req, res) => {
   const { destination, date } = req.query;
   try {
@@ -11,7 +11,7 @@ exports.searchVoyages = async (req, res) => {
       console.log("Recherche destination:", destination);
       conditions.push({
         destination: {
-          [Op.like]: `%${destination}%`
+          [Op.like]: destination.trim()
         }
       });
     }
@@ -42,7 +42,7 @@ exports.searchVoyages = async (req, res) => {
   }
 };
 
-// detail pour utilisateur anonyme
+// detail de voyage pour utilisateur anonyme
 exports.getVoyageDetailsAnonymous = async (req, res) => {
   res.status(401).json({
     message: "Vous devez vous connecter pour voir les détails du voyage",
@@ -50,7 +50,7 @@ exports.getVoyageDetailsAnonymous = async (req, res) => {
   });
 };
 
-// detail pour utilisateur connecter
+// detail de voyage  pour utilisateur connecté
 exports.getVoyageDetailsForUser = async (req, res) => {
   try {
     const voyage = await Voyage.findByPk(req.params.id, {

@@ -1,6 +1,6 @@
 const { Notification, User } = require("../models");
 
-// voir toutes les notifications utilisateurs
+// voir toutes les notifications 
 exports.getAllNotifications = async (req, res) => {
   try {
     const notifications = await Notification.findAll({
@@ -14,6 +14,7 @@ exports.getAllNotifications = async (req, res) => {
   }
 };
 
+// voir une notification par ID 
 exports.getNotificationById = async (req, res) => {
   try {
     const notif = await Notification.findByPk(req.params.id);
@@ -26,7 +27,7 @@ exports.getNotificationById = async (req, res) => {
   }
 };
 
-// supprimer notification
+// supprimer une notification
 exports.deleteNotification = async (req, res) => {
   try {
     const notif = await Notification.findByPk(req.params.id);
@@ -39,7 +40,7 @@ exports.deleteNotification = async (req, res) => {
   }
 };
 
-// ajouter  notification manuellement
+// créer une notification manuellement
 exports.createNotification = async (req, res) => {
   try {
     console.log("Requête création notification, body =", req.body);
@@ -61,7 +62,7 @@ exports.createNotification = async (req, res) => {
   }
 };
 
-// envoyer  notification utilisateur
+// envoyer  notification à un utilisateur
 exports.envoyerNotification = async (req, res) => {
   try {
     const { userId, message, type } = req.body;
@@ -86,7 +87,7 @@ exports.envoyerNotification = async (req, res) => {
   }
 };
 
-// envoyer une notification tous utilisateurs
+// envoyer une notification à tous les utilisateurs
 exports.envoyerNotificationTous = async (req, res) => {
   try {
     const { message, type } = req.body;
@@ -112,6 +113,7 @@ exports.envoyerNotificationTous = async (req, res) => {
   }
 };
 
+// mettre à jour le contenu d'une notification
 exports.updateNotification = async (req, res) => {
   try {
     const notif = await Notification.findByPk(req.params.id);

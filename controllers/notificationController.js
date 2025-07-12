@@ -1,5 +1,6 @@
-const { Notification, User } = require("../models");
+const { Notification, User, Reservation } = require("../models");
 
+// récupérer les notifications de l'utilisateur connecté
 exports.getNotifications = async (req, res) => {
   try {
     const userId = req.user?.id;
@@ -20,7 +21,7 @@ exports.getNotifications = async (req, res) => {
   }
 };
 
-
+// confirmer une réservation
 exports.confirmReservation = async (req, res) => {
   try {
     const reservationId = req.params.id;
@@ -43,7 +44,7 @@ exports.confirmReservation = async (req, res) => {
 
     await Notification.create({
       UserId: reservation.UserId,
-      message: `Votre réservation ${reservation.id} est confirmée.`,
+      message: `Votre réservation est confirmée.`,
       documentUrl,
       date: new Date(),
     });

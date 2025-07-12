@@ -1,6 +1,6 @@
 const { User } = require("../models");
 
-// Lister tous les utilisateurs (sans le mot de passe)
+// Lister tous les utilisateurs 
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.findAll({ attributes: { exclude: ["password"] } });
@@ -10,7 +10,7 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
-// Modifier un utilisateur (ex: role, email, username)
+// Modifier un utilisateur 
 exports.updateUser = async (req, res) => {
   try {
     const id = req.params.id;

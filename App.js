@@ -13,12 +13,10 @@ const reservationRoutes = require('./routes/reservationRoute');
 const notificationRoutes = require('./routes/notificationRoute');
 const adminRoutes = require("./routes/adminRoute");
 const voyageAdminRoutes = require('./routes/voyageAdminRoute');
-const hotelAdminRoutes = require('./routes/hotelAdminRoute');
-const transportAdminRoutes = require('./routes/transportAdminRoute');
-const activityAdminRoutes = require('./routes/activityAdminRoute');
 const adminNotificationRoutes = require("./routes/adminNotificationRoute");
 const userAdminRoutes = require("./routes/userAdminRoute"); 
 const statsRoutes = require("./routes/statsRoute")
+const pdfRoutes = require("./routes/pdfRoutes");
 const upload = multer({ dest: 'uploads/' });
 
 app.use(express.json());
@@ -34,13 +32,11 @@ app.use('/reservation', reservationRoutes);
 app.use('/notification', notificationRoutes);
 app.use("/admin", adminRoutes);
 app.use('/admin/voyage', voyageAdminRoutes);
-app.use('/admin/hotels', hotelAdminRoutes);
-app.use('/admin/transports', transportAdminRoutes);
-app.use('/admin/activities', activityAdminRoutes);
 app.use("/admin/notification", adminNotificationRoutes);
 app.use("/admin/user", userAdminRoutes);
 app.use('/admin', adminRoutes);
-app.use('/admin' ,statsRoutes )
+app.use('/admin' ,statsRoutes );
+app.use('/api', pdfRoutes);
 
 
 const PORT = process.env.PORT || 3000;

@@ -5,6 +5,7 @@ const path = require('path');
 const { Voyage, Hotel, Transport, Activity, Reservation, Document, Notification } = require('../models');
 const { generateReservationPDF } = require('../utils/pdfGenerator');
 
+// créer une réservation
 exports.createReservation = async (req, res) => {
   console.log("Requête reçue avec body:", req.body);
   console.log("Fichiers reçus:", req.files);
@@ -116,7 +117,7 @@ exports.createReservation = async (req, res) => {
   }
 };
 
-// obtenir  reservations
+// obtenir les reservations des utilisateurs
   exports.getUserReservations = async (req, res) => {
     try {
       const reservations = await Reservation.findAll({
@@ -129,6 +130,7 @@ exports.createReservation = async (req, res) => {
     }
   };
 
+// confirmer une réservation (côté admin)
 exports.confirmReservation = async (req, res) => {
   const { reservationId } = req.body;
   try {
@@ -155,6 +157,7 @@ exports.confirmReservation = async (req, res) => {
   }
 };
 
+// annuler une réservation (côté admin ou utilisateur)
 exports.cancelReservation = async (req, res) => {
   const { reservationId } = req.body;
   console.log("Annulation de réservation ID :", reservationId);

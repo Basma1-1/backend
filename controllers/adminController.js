@@ -1,6 +1,7 @@
-const { User, Role, } = require("../models");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+
+const { User, Role, } = require("../models");
 
 // connecter admin 
 exports.login = async (req, res) => {
@@ -31,7 +32,7 @@ exports.login = async (req, res) => {
   }
 };
 
-// gestion utilisateur 
+// récupération des utilisateurs
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.findAll({ include: [Role] });
@@ -41,6 +42,7 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
+// suppression des utilisateurs
 exports.deleteUser = async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id);
@@ -57,6 +59,7 @@ exports.deleteUser = async (req, res) => {
   }
 };
 
+// change le role utilisateur
 exports.changeUserRole = async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id);

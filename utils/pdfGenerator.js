@@ -50,7 +50,8 @@ async function generateReservationPDF(reservation, voyage, hotel, transport, act
       if (activities && activities.length > 0) {
         doc.fontSize(14).text('Activités:', { underline: true });
         activities.forEach((act, idx) => {
-          doc.text(`${idx + 1}. ${act.activity_name} - Date: ${act.date}, Heure: ${act.activity_time}, Prix: ${act.price} €`);
+        doc.text(`${idx + 1}. ${act.activity_name} - Date: ${act.date}, Heure: ${act.activity_time}, Prix: ${act.price} €`);
+        doc.moveDown(); 
         });
         doc.moveDown();
       }

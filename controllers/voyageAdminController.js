@@ -3,6 +3,7 @@ const { Op } = require('sequelize');
 
 const { Voyage, Hotel, Transport, Activity } = require("../models");
 
+// formatage des dates en y-m-d
 function formatDate(value) {
   if (!value) return "";
   const date = new Date(value);
@@ -15,25 +16,31 @@ function formatDate(value) {
   return `${year}-${month}-${day}`;
 }
 
-// creer un voyage
+// créer un voyage
 exports.createVoyage = async (req, res) => {
   try {
+    console.log("req.files =>", req.files);
+    console.log("req.body =>", req.body);
+
     const voyageData = {
       description: req.body.description,
       depart: req.body.depart,
       destination: req.body.destination,
       start_date: req.body.start_date,
       end_date: req.body.end_date,
-      image_url: req.files['image'] ? '/uploads/' + req.files['image'][0].filename : null,
+      image_url: req.files['image'] && req.files['image'][0]
+        ? '/uploads/' + req.files['image'][0].filename
+        : null,
     };
 
     let hotels = [];
     if (req.body.Hotels) {
       hotels = JSON.parse(req.body.Hotels);
+      const hotelsImages = req.files['HotelsImages'] || [];
       if (req.files['HotelsImages']) {
         hotels = hotels.map((h, i) => ({
-          ...h,
-          image_url: '/uploads/' + req.files['HotelsImages'][i].filename
+        ...h,
+        image_url: hotelsImages[i] ? '/uploads/' + hotelsImages[i].filename : null
         }));
       }
     }
@@ -41,10 +48,11 @@ exports.createVoyage = async (req, res) => {
     let transports = [];
     if (req.body.Transports) {
       transports = JSON.parse(req.body.Transports);
+      const transportsImages = req.files['TransportsImages'] || [];
       if (req.files['TransportsImages']) {
         transports = transports.map((t, i) => ({
-          ...t,
-          image_url: '/uploads/' + req.files['TransportsImages'][i].filename
+        ...t,
+        image_url: transportsImages[i] ? '/uploads/' + transportsImages[i].filename : null
         }));
       }
     }
@@ -52,15 +60,17 @@ exports.createVoyage = async (req, res) => {
     let activities = [];
     if (req.body.Activities) {
       activities = JSON.parse(req.body.Activities);
+      const activitiesImages = req.files['ActivitiesImages'] || [];
       if (req.files['ActivitiesImages']) {
         activities = activities.map((a, i) => ({
-          ...a,
-          image_url: '/uploads/' + req.files['ActivitiesImages'][i].filename
+        ...a,
+        image_url: activitiesImages[i] ? '/uploads/' + activitiesImages[i].filename : null
         }));
       }
     }
 
     let voyage = await Voyage.create(voyageData);
+
     if (hotels.length > 0) {
       await Promise.all(hotels.map(h => Hotel.create({ ...h, VoyageId: voyage.id })));
     }
@@ -83,7 +93,7 @@ exports.createVoyage = async (req, res) => {
   }
 };
 
-// lire un voyage
+// lire un voyage par id
 exports.getOneVoyage = async (req, res) => {
   try {
     const id = req.params.id;
@@ -133,6 +143,7 @@ exports.getOneVoyage = async (req, res) => {
   }
 };
 
+// lire tous les voyages
 exports.getAllVoyages = async (req, res) => {
   try {
     const voyages = await Voyage.findAll({
@@ -177,6 +188,7 @@ exports.getAllVoyages = async (req, res) => {
   }
 };
 
+// modifier un voyage
 exports.updateVoyage = async (req, res) => {
   try {
     const id = req.params.id;

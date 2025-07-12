@@ -2,10 +2,10 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-// Dossier ou les fichiers  stockés
+// dossier ou les fichiers serot stockés
 const uploadDir = path.join(__dirname, '..', 'uploads');
 
-// creation de dossier s'il n'existe pas
+// creation automtique de dossier s'il n'existe pas
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
 }

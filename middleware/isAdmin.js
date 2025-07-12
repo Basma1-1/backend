@@ -1,3 +1,4 @@
+// vérifier si l'utilisateur connecté est un admin
 module.exports = (req, res, next) => {
   console.log("Rôle utilisateur dans isAdmin :", req.user.role);
   
@@ -9,6 +10,7 @@ module.exports = (req, res, next) => {
     res.status(403).json({ message: "Accès réservé aux administrateurs" });
   }
 };
+
 
 
 

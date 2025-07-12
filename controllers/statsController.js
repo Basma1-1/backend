@@ -1,6 +1,7 @@
-const { Voyage, User, Reservation } = require('../models');
 const sequelize = require('../config/db');
+const { Voyage, User, Reservation } = require('../models');
 
+// obtenir les statistiques globales 
 exports.getStats = async (req, res) => {
   try {
     const voyagesCount = await Voyage.count();
